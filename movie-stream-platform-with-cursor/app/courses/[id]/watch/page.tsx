@@ -49,21 +49,21 @@ export default async function WatchPage({
 
   return (
     <div className="flex min-h-screen flex-col bg-zinc-950">
-      <header className="border-b border-zinc-800 bg-zinc-900 px-4 py-3">
+      <header className="border-b border-zinc-800 bg-zinc-900/95 px-4 py-3 backdrop-blur-sm">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <Link
             href={`/courses/${courseId}`}
-            className="text-sm text-blue-400 hover:underline"
+            className="text-sm text-zinc-300 transition-colors hover:text-zinc-100"
           >
             ← {course.title}
           </Link>
         </div>
       </header>
 
-      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-6 p-4 lg:flex-row">
+      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-6 p-4 md:p-6 lg:flex-row">
         {/* 動画エリア */}
         <div className="flex-1">
-          <div className="aspect-video overflow-hidden rounded-lg bg-black">
+          <div className="aspect-video overflow-hidden rounded-xl border border-zinc-800 bg-black shadow-2xl shadow-black/30">
             {displayVideo ? (
               <VideoPlayer
                 videoId={displayVideo.youtubeVideoId}
@@ -78,7 +78,7 @@ export default async function WatchPage({
             )}
           </div>
           {displayVideo && (
-            <h2 className="mt-4 text-lg font-semibold text-zinc-100">
+            <h2 className="mt-4 text-lg font-medium tracking-tight text-zinc-100">
               {displayVideo.title}
             </h2>
           )}
@@ -86,8 +86,8 @@ export default async function WatchPage({
 
         {/* セッション・動画一覧 */}
         <aside className="w-full lg:w-80">
-          <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-4">
-            <h3 className="mb-4 font-semibold text-zinc-100">
+          <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-5 shadow-lg shadow-black/20">
+            <h3 className="mb-4 text-sm font-medium tracking-wide text-zinc-100">
               セッション一覧
             </h3>
             <div className="max-h-[400px] space-y-4 overflow-y-auto">
@@ -101,9 +101,9 @@ export default async function WatchPage({
                       <li key={video.id}>
                         <Link
                           href={`/courses/${courseId}/watch?video=${video.id}`}
-                          className={`block rounded px-2 py-1.5 text-sm transition ${
+                          className={`block rounded-md px-2.5 py-1.5 text-sm transition-colors ${
                             displayVideo?.id === video.id
-                              ? "bg-blue-600/30 text-blue-300"
+                              ? "border border-zinc-600 bg-zinc-800 text-zinc-100"
                               : "text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
                           }`}
                         >

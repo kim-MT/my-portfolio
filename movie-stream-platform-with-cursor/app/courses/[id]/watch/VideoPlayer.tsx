@@ -43,7 +43,7 @@ export function VideoPlayer({
               e.preventDefault();
               handleNextVideo();
             }}
-            className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700"
+            className="rounded-lg border border-zinc-200/20 bg-zinc-900/85 px-4 py-2 text-sm font-medium text-zinc-100 backdrop-blur-sm transition-colors hover:bg-zinc-800"
           >
             次の動画へ →
           </Link>
