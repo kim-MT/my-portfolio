@@ -1,0 +1,68 @@
+{
+  "courses": [
+    {
+      "id": "course-1",
+      "title": "Next.js 完全入門",
+      "description": "Next.js App Router を使ったモダンなWebアプリケーション開発を学びます。Server Components、ルーティング、データフェッチングの基礎から実践までをカバーします。",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=225&fit=crop",
+      "instructor": "山田 太郎"
+    },
+    {
+      "id": "course-2",
+      "title": "TypeScript 実践ガイド",
+      "description": "型安全なJavaScript開発のためのTypeScriptを、基礎から応用まで体系的に学習します。実務で使えるパターンとベストプラクティスを身につけましょう。",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=400&h=225&fit=crop",
+      "instructor": "佐藤 花子"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "session-1-1",
+      "courseId": "course-1",
+      "name": "第1章: はじめに",
+      "order": 1
+    },
+    {
+      "id": "session-1-2",
+      "courseId": "course-1",
+      "name": "第2章: App Router の基礎",
+      "order": 2
+    },
+    {
+      "id": "session-2-1",
+      "courseId": "course-2",
+      "name": "第1章: TypeScript 入門",
+      "order": 1
+    }
+  ],
+  "videos": [
+    {
+      "id": "video-1-1-1",
+      "sessionId": "session-1-1",
+      "title": "Next.js とは",
+      "youtubeVideoId": "dQw4w9WgXcQ",
+      "order": 1
+    },
+    {
+      "id": "video-1-1-2",
+      "sessionId": "session-1-1",
+      "title": "開発環境のセットアップ",
+      "youtubeVideoId": "SqcY0GlETpg",
+      "order": 2
+    },
+    {
+      "id": "video-1-2-1",
+      "sessionId": "session-1-2",
+      "title": "ファイルベースルーティング",
+      "youtubeVideoId": "SqcY0GlETpg",
+      "order": 1
+    },
+    {
+      "id": "video-2-1-1",
+      "sessionId": "session-2-1",
+      "title": "型の基本",
+      "youtubeVideoId": "BwuLxPH8IDs",
+      "order": 1
+    }
+  ]
+}

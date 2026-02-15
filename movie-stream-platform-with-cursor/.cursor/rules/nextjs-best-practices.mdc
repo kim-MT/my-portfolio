@@ -1,0 +1,91 @@
+---
+description: Next.js App Router ベストプラクティス（キャッシュコンポーネント無効）
+globs: ["app/**/*.tsx", "app/**/*.ts", "components/**/*.tsx"]
+alwaysApply: false
+---
+
+# Next.js ベストプラクティス（キャッシュ無効）
+
+本プロジェクトでは **Cache Components（`use cache` / `cache()`）は使用しない**。  
+Next.js 15+ のデフォルト（キャッシュオプトアウト）に従い、シンプルな構成で開発する。
+
+## Server Components をデフォルトに
+
+- コンポーネントは **Server Component をデフォルト** とする
+- クライアントバンドルを小さく保ち、初期表示を高速化する
+
+```tsx
+// ✅ GOOD: Server Component（デフォルト）
+export default async function CourseList() {
+  const courses = await fetchCourses();
+  return <ul>{courses.map(c => <li key={c.id}>{c.title}</li>)}</ul>;
+}
+```
+
+## Client Components は必要最小限
+
+以下の場合のみ `'use client'` を付与する：
+
+- `useState`, `useEffect` などの React フック
+- イベントハンドラ（`onClick`, `onChange` など）
+- ブラウザ API（`localStorage`, `window`）
+- カスタムフック
+- サードパーティライブラリ（ブラウザ依存）
+
+```tsx
+// ✅ GOOD: 必要な部分だけ Client Component
+'use client';
+
+export function VideoPlayer({ videoId }: { videoId: string }) {
+  const [playing, setPlaying] = useState(false);
+  return <div onClick={() => setPlaying(!playing)}>...</div>;
+}
+```
+
+## Server Parent, Client Children パターン
+
+- **親は Server Component**、インタラクティブな部分だけ **子を Client Component** にする
+- データは Server から props で渡し、クライアント JS を増やさない
+
+```tsx
+// ✅ GOOD: 親は Server、子だけ Client
+// app/courses/[id]/page.tsx（Server）
+export default async function CoursePage({ params }: { params: { id: string } }) {
+  const course = await getCourse(params.id);
+  return (
+    <div>
+      <h1>{course.title}</h1>
+      <VideoPlayer videoId={course.videoId} />
+    </div>
+  );
+}
+```
+
+## キャッシュは使わない
+
+- `use cache` ディレクティブは使用しない
+- `cache()` でラップした Cache Components は使用しない
+- データ取得は通常の `async` Server Component で行う
+
+```tsx
+// ❌ BAD: Cache Components は使わない
+import { cache } from 'next/cache';
+export const CachedList = cache(async function List() { ... });
+
+// ✅ GOOD: 通常の async Server Component
+export default async function List() {
+  const data = await fetchData();
+  return <ul>...</ul>;
+}
+```
+
+## 動的 API の使用に注意
+
+`cookies()`, `headers()`, `searchParams` を使うとルート全体が動的レンダリングになる。  
+必要なページ・コンポーネントに限定して使用する。
+
+## ディレクトリ構成
+
+- `app/` 配下に App Router のルート・レイアウト・ページを配置
+- 共通コンポーネントは `components/` に配置
+- データ取得関数は `lib/` または適切なモジュールに分離
